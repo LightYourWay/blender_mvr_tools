@@ -17,6 +17,8 @@
 # ##### END GPL LICENSE BLOCK #####
 
 import bpy
+import zipfile
+import os
 
 from bpy_extras.io_utils import (
     ImportHelper,
@@ -73,10 +75,22 @@ class ExportMVR(bpy.types.Operator, ExportHelper):
         file = open(keywords["filepath"], "w")
         try:
             file.write("Leben is toll :)")
+            file.close()
             self.report({'INFO'}, "File saved")
+            # get filename without extension
+            filename_zip = os.path.splitext(keywords["filepath"])[0]
+            # create zip file
+            try:
+                zip_file = zipfile.ZipFile(f'{filename_zip}.zip', "w")
+                zip_file.write(keywords["filepath"], os.path.basename(keywords["filepath"]))
+                zip_file.close()
+                self.report({'INFO'}, "ZIP File saved")
+            except:
+                zip_file.close()
+                self.report({'ERROR'}, "Could not create zip file")
         except:
             self.report({'ERROR'}, "File not saved")
-        file.close()
+        
 
         return {'FINISHED'}
 
