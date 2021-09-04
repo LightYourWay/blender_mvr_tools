@@ -50,7 +50,10 @@ class ImportMVR(bpy.types.Operator, ImportHelper):
     filter_glob: StringProperty(default="*.mvr", options={'HIDDEN'})
 
     def execute(self, context):
-        self.report({'INFO'}, 'Hello World! IMPORT')
+        keywords = self.as_keywords()
+        file = open(keywords["filepath"], "r")
+        self.report({'INFO'}, file.read())
+        file.close()
 
         return {'FINISHED'}
 
@@ -66,7 +69,14 @@ class ExportMVR(bpy.types.Operator, ExportHelper):
     )
 
     def execute(self, context):
-        self.report({'INFO'}, 'Hello World! EXPORT')
+        keywords = self.as_keywords()
+        file = open(keywords["filepath"], "w")
+        try:
+            file.write("Leben is toll :)")
+            self.report({'INFO'}, "File saved")
+        except:
+            self.report({'ERROR'}, "File not saved")
+        file.close()
 
         return {'FINISHED'}
 
