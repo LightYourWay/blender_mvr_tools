@@ -19,6 +19,7 @@
 import bpy
 import zipfile
 import os
+import shutil
 
 from bpy_extras.io_utils import (
     ImportHelper,
@@ -72,17 +73,18 @@ class ExportMVR(bpy.types.Operator, ExportHelper):
 
     def execute(self, context):
         keywords = self.as_keywords()
-        file = open(keywords["filepath"], "w")
+        mvr_path = keywords["filepath"]
+        root_path = f'{os.path.dirname(keywords["filepath"])}/temp_mvr'
+        os.makedirs(root_path)
+        file = open(f'{root_path}/demo.txt', "w")
         try:
-            file.write("Leben is toll :)")
+            file.write("Leben is noch toller :)")
             file.close()
             self.report({'INFO'}, "File saved")
-            # get filename without extension
-            filename_zip = os.path.splitext(keywords["filepath"])[0]
             # create zip file
             try:
-                zip_file = zipfile.ZipFile(f'{filename_zip}.zip', "w")
-                zip_file.write(keywords["filepath"], os.path.basename(keywords["filepath"]))
+                zip_file = zipfile.ZipFile(keywords["filepath"], "w")
+                zip_file.write(f'{root_path}/demo.txt', 'demo.txt')
                 zip_file.close()
                 self.report({'INFO'}, "ZIP File saved")
             except:
@@ -90,6 +92,7 @@ class ExportMVR(bpy.types.Operator, ExportHelper):
                 self.report({'ERROR'}, "Could not create zip file")
         except:
             self.report({'ERROR'}, "File not saved")
+        shutil.rmtree(root_path)
         
 
         return {'FINISHED'}
