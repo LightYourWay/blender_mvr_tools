@@ -25,6 +25,6 @@ import unittest
 
 if __name__ == "__main__":
     sys.argv = [__file__] + (sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else [])
-    testsuite = unittest.TestLoader().discover('test/unit_test')
+    testsuite = unittest.TestLoader().discover('test/build_test')
     if not unittest.TextTestRunner(verbosity=2).run(testsuite).wasSuccessful():
         sys.exit(1)

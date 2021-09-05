@@ -32,4 +32,5 @@ bpy.ops.wm.open_mainfile(filepath=bpy.path.abspath("//test/import.blend"))
 if __name__ == "__main__":
     sys.argv = [__file__] + (sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else [])
     testsuite = unittest.TestLoader().discover('test/e2e_test')
-    unittest.TextTestRunner(verbosity=2).run(testsuite)
+    if not unittest.TextTestRunner(verbosity=2).run(testsuite).wasSuccessful():
+        sys.exit(1)

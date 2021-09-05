@@ -16,7 +16,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  build_test:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -34,17 +34,28 @@ jobs:
         run: blender --version
 
       # Runs a single command using the runners shell
-      - name: Run E2E Tests
-        run: blender --background -noaudio --python test/e2e.py
+      - name: Run Build Tests
+        run: blender --background -noaudio --python test/build.py
 
-      # Runs a single command using the runners shell
+  unit_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Blender
+        run: sudo snap install blender --classic
       - name: Run Unit Tests
         run: blender --background -noaudio --python test/unit.py
 
-      # preserve artifacts for later investigation
+  e2e_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Blender
+        run: sudo snap install blender --classic
+      - name: Run E2E Tests
+        run: blender --background -noaudio --python test/e2e.py
       - name: Preserve Artifacts For Later Investigation
         uses: actions/upload-artifact@v2
         with:
           name: e2e-testing-result
           path: test/dist/
-
