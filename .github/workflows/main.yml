@@ -32,6 +32,10 @@ jobs:
       # Runs a single command using the runners shell
       - name: Print Verson
         run: blender --version
+      
+      # Runs a single command using the runners shell
+      - name: List Content Of Current Dir
+        run: ls -la
 
       # Runs a set of commands using the runners shell
       # - name: Run a multi-line script
