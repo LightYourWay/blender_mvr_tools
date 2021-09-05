@@ -27,7 +27,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Install Blender
-        run: snap install blender --classic
+        run: sudo snap install blender --classic
         
       # Runs a single command using the runners shell
       - name: Print Verson
