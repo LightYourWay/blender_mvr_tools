@@ -32,10 +32,14 @@ jobs:
       # Runs a single command using the runners shell
       - name: Print Verson
         run: blender --version
-      
+
       # Runs a single command using the runners shell
       - name: Run E2E Tests
         run: blender --background -noaudio --python test/e2e.py
+
+      # Runs a single command using the runners shell
+      - name: Run Unit Tests
+        run: blender --background -noaudio --python test/unit.py
 
       # preserve artifacts for later investigation
       - name: Preserve Artifacts For Later Investigation
@@ -44,8 +48,3 @@ jobs:
           name: e2e-testing-result
           path: test/dist/
 
-      # Runs a set of commands using the runners shell
-      # - name: Run a multi-line script
-      #  run: |
-      #    echo Add other actions to build,
-      #    echo test, and deploy your project.
