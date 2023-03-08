@@ -20,13 +20,15 @@ import bpy
 from . ui.import_mvr_menu import *
 from . ui.export_mvr_menu import *
 
+MENU_NAME = "My Virtual Rig (.mvr)"
+
 # Add to a menu
 def menu_func_export(self, context):
-    self.layout.operator(ExportMvrMenu.bl_idname, text="My Virtual Rig (.mvr)")
+    self.layout.operator(ExportMvrMenu.bl_idname, text=MENU_NAME)
 
 
 def menu_func_import(self, context):
-    self.layout.operator(ImportMvrMenu.bl_idname, text="My Virtual Rig (.mvr)")
+    self.layout.operator(ImportMvrMenu.bl_idname, text=MENU_NAME)
 
 def register():
     bpy.utils.register_class(ImportMvrMenu)

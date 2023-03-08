@@ -5,7 +5,11 @@ import shutil
 
 from bpy_extras.io_utils import ExportHelper
 
-from bpy.props import StringProperty
+from bpy.props import (
+    StringProperty,
+    BoolProperty
+)
+
 
 class ExportMvrMenu(bpy.types.Operator, ExportHelper):
     """Export to 3DS file format (.3ds)"""
@@ -13,13 +17,27 @@ class ExportMvrMenu(bpy.types.Operator, ExportHelper):
     bl_label = 'Export MVR'
 
     filename_ext = ".mvr"
-    filter_glob: StringProperty(
-        default="*.mvr",
-        options={'HIDDEN'},
+
+    filter_glob: StringProperty(default="*.mvr", options={'HIDDEN'})
+
+    use_selection_only: BoolProperty(
+        name="Selected Objects",
+        description="Export selected objects only",
+        default=False,
+    )
+
+    use_3ds_format: BoolProperty(
+        name=".3ds Format (legacy!)",
+        description="Export Objects in .3ds Format (legacy option!)",
+        default=False,
     )
 
     def execute(self, context):
         keywords = self.as_keywords()
+
+        print(keywords)
+
+        """
         mvr_path = keywords["filepath"]
         root_path = f'{os.path.dirname(keywords["filepath"])}/temp_mvr'
         os.makedirs(root_path)
@@ -40,6 +58,5 @@ class ExportMvrMenu(bpy.types.Operator, ExportHelper):
         except:
             print("File not saved")
         shutil.rmtree(root_path)
-        
-
+        """
         return {'FINISHED'}

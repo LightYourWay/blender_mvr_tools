@@ -5,6 +5,8 @@ from bpy_extras.io_utils import ImportHelper
 
 from bpy.props import StringProperty
 
+from . .  io.mvr import *
+
 class ImportMvrMenu(bpy.types.Operator, ImportHelper):
     """Import from 3DS file format (.3ds)"""
     bl_idname = "import_scene.mvr"
@@ -17,7 +19,18 @@ class ImportMvrMenu(bpy.types.Operator, ImportHelper):
     def execute(self, context):
         keywords = self.as_keywords()
         mvr_path = keywords['filepath']
-        mvr_file = zipfile.ZipFile(mvr_path, 'r')
-        print(mvr_file.read("demo.txt").decode("UTF-8"))
 
+        MvrImporter.importMvrFile(mvr_path)
+        
+        """
+        print(keywords)
+
+        
+        mvr_file = zipfile.ZipFile(mvr_path, 'r')
+
+        print(mvr_file)
+
+        #print(mvr_file.read("demo.txt").decode("UTF-8"))        
+        """
+        
         return {'FINISHED'}
