@@ -18,14 +18,19 @@
 
 from .main import *
 
+import importlib
+from . import ui
+
+importlib.reload(ui)
+
 bl_info = {
     "name": "MVR Import / Export",
     "author": "Felix Scheib, Lukas Runge",
     "version": (0, 0, 1),
-    "blender": (2, 93, 4),
+    "blender": (3, 4, 1),
     "location": "File > Import | File > Export",
-    "description": "Import / Export MVR e.g. for use in lighting control software",
-    "warning": "I am not able to warn you yet, but this is under heavy development without ony knowledge.",
+    "description": "Import/Export of MVR (My Virtual Rig) Data. MVR is used in the event industry to exchange the data of stages and lighting devices.",
+    "warning": "This AddOn is under heavy development.",
     "doc_url": "http://example.com/"
                "Scripts/Import-Export/MVR",
     "category": "Import-Export",
